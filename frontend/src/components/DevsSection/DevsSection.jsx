@@ -3,6 +3,7 @@ import './DevsSection.css';
 import Niigadyut from './Niigadyut.jpeg';
 import Adih from './adih.jpeg';
 import Mehehe from './mehehe.jpeg';
+import Bubbly from './Bubbly.jpeg';
 
 /* ─── Brand SVG icons ─── */
 const GithubIcon = () => (
@@ -97,16 +98,19 @@ const developers = [
     },
   },
   {
-    name: 'Logo Designer',
-    image: null,
-    initials: 'LD',
+    name: 'Bhavik Lal',
+    image: Bubbly,
     role: 'Logo Designer',
     dept: 'CSE, TSSOT',
-    bio: 'Post Open',
-    skills: [],
-    socials: {},
-    isOpen: true,
-  },
+    bio: 'A catfisher',
+    skills: ['Canva', 'Figma'],
+    socials: {
+      github: '#',
+      linkedin: '#',
+      email: '#',
+      website: '#',
+    }
+  }
 ];
 
 /* ─── Dev Card ─── */
