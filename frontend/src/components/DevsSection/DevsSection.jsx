@@ -27,6 +27,10 @@ const ReactIcon = () => (
   </svg>
 );
 
+const ExpressIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path d="M126.67 98.44c-4.56 1.16-7.38.05-9.91-3.75-5.68-8.51-11.95-16.63-18-24.9-.78-1.07-1.59-2.12-2.6-3.45C89 76 81.85 85.2 75.14 94.77c-2.4 3.42-4.92 4.91-9.4 3.7l26.92-36.13L67.6 29.71c4.31-.84 7.29-.41 9.93 3.45 5.83 8.52 12.26 16.63 18.67 25.21 6.45-8.55 12.8-16.67 18.8-25.11 2.41-3.42 5-4.72 9.33-3.46-3.28 4.35-6.49 8.63-9.72 12.88-4.36 5.73-8.64 11.53-13.16 17.14-1.61 2-1.35 3.3.09 5.19C109.9 76 118.16 87.1 126.67 98.44zM1.33 61.74c.72-3.61 1.2-7.29 2.2-10.83 6-21.43 30.6-30.34 47.5-17.06C60.93 41.64 63.39 52.62 62.9 65H7.1c-.84 22.21 15.15 35.62 35.53 28.78 7.15-2.4 11.36-8 13.47-15 1.07-3.51 2.84-4.06 6.14-3.06-1.69 8.76-5.52 16.08-13.52 20.66-12 6.86-29.13 4.64-38.14-4.89C5.26 85.89 3 78.92 2 71.39c-.15-1.2-.46-2.38-.7-3.57q.03-3.04.03-6.08zm5.87-1.49h50.43c-.33-16.06-10.33-27.47-24-27.57-15-.12-25.78 11.02-26.43 27.57z"/></svg>
+)
+
 const ViteIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
     <path d="M21.805 2.385L12.35 21.235c-.208.414-.803.414-1.012 0L1.895 2.385c-.228-.454.177-.966.666-.844l9.32 2.32c.075.018.153.018.228 0l9.03-2.32c.489-.122.894.39.666.844z" fill="url(#vite-a)"/>
@@ -51,12 +55,9 @@ const TailwindIcon = () => (
 );
 
 const techStack = [
-  { name: 'React 19', desc: 'UI Framework', icon: ReactIcon, color: '#61dafb' },
-  { name: 'Vite', desc: 'Build Tool', icon: ViteIcon, color: '#bd34fe' },
+  { name: 'React', desc: 'UI Framework', icon: ReactIcon, color: '#61dafb' },
   { name: 'Tailwind CSS', desc: 'Styling', icon: TailwindIcon, color: '#38bdf8' },
-  { name: 'React Router', desc: 'Navigation', icon: Layout, color: '#f44250' },
-  { name: 'Lucide React', desc: 'Icon System', icon: Palette, color: '#afb3f7' },
-  { name: 'LocalStorage', desc: 'Data Layer', icon: Database, color: '#92bcea' },
+  { name: 'Express', desc: 'Backend', icon: ExpressIcon, color: '#ffffff'}
 ];
 
 const developers = [
@@ -65,6 +66,7 @@ const developers = [
     initials: 'D1',
     image: Niigadyut,
     role: 'Full Stack Developer',
+    dept: 'CSE, TSSOT',
     bio: 'Passionate about building tools that help students succeed. Architecting the backend and frontend integration.',
     skills: ['React', 'Node.js', 'MongoDB', 'REST APIs'],
     socials: {
@@ -79,6 +81,7 @@ const developers = [
     initials: 'D2',
     image: Mehehe,
     role: 'Frontend Developer & UI Designer',
+    dept: 'CSE, TSSOT',
     bio: 'Crafting pixel-perfect interfaces with a love for design systems, animations, and cyberpunk aesthetics.',
     skills: ['React', 'CSS/Tailwind', 'Figma', 'Motion'],
     socials: {
@@ -93,6 +96,7 @@ const developers = [
     initials: 'D3',
     image: Adih,
     role: 'Backend Developer',
+    dept: 'CSE, TSSOT',
     bio: 'Database wizard and API architect. Making sure every paper is stored safely and served lightning fast.',
     skills: ['Python', 'Express', 'PostgreSQL', 'Docker'],
     socials: {
@@ -152,6 +156,7 @@ export default function DevsSection() {
                 </div>
                 <h3 className="dev-name">{dev.name}</h3>
                 <span className="dev-role">{dev.role}</span>
+                <span className="dev-role">{dev.dept}</span>
                 <p className="dev-bio">{dev.bio}</p>
 
                 {/* Skill tags */}
