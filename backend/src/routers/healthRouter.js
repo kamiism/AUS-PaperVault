@@ -14,7 +14,7 @@ healthRouter.get("/", (req, res) => {
 
         if (dbStatus == "up") {
             return sendSuccess(res, "Server is healthy", STATUS_CODES.SUCCESS, {
-                uptime: `${Math.floor(uptime / 60)} mins ${uptime % 60} seconds`,
+                uptime: `${uptime >= 3600 ? `${Math.floor(uptime / 3600)} hours ` : ""}${Math.floor((uptime - Math.floor(uptime / 3600) * 60 * 60) / 60)} mins ${uptime % 60} seconds`,
                 database: dbStatus,
             });
         }
