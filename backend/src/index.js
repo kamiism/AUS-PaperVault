@@ -2,6 +2,7 @@ import express from "express";
 import { CORS_ORIGIN, PORT } from "./config.js";
 import router from "./routers/router.js";
 import cors from "cors";
+import connectDB from "./db/db.js";
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(
 );
 
 app.use("/api/v1", router);
+
+connectDB();
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}/`);
