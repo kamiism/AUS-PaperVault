@@ -47,6 +47,10 @@ const userSchema = new mongoose.Schema(
         refreshTokenExpiry: {
             type: Number,
         },
+        isVerified: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,
@@ -65,6 +69,7 @@ userSchema.pre("save", async function () {
 });
 
 userSchema.pre("save", async function () {
+    if (this.isModified("refreshTokenExpiry")) return;
     this.refreshTokenExpiry = Date.now() + 7 * 24 * 60 * 60 * 1000;
 });
 
