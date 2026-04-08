@@ -4,11 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 20, 40, 0.98) 0%,
-    rgba(10, 25, 47, 0.95) 100%
-  );
+  background: transparent;
   position: relative;
   overflow: hidden;
 }

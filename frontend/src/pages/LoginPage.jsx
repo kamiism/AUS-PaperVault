@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Mail, ArrowRight, Lock } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import PerspectiveGrid from "../components/PerspectiveGrid/PerspectiveGrid";
 import "./LoginPage.css";
 
 const pageVariants = {
@@ -109,6 +110,7 @@ export default function LoginPage() {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseMove={handleMouseMove}
     >
+      <PerspectiveGrid />
       <div className="login-container">
         <div className="login-card">
           {/* Card Header */}

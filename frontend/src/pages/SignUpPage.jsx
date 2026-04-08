@@ -13,6 +13,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import PerspectiveGrid from "../components/PerspectiveGrid/PerspectiveGrid";
 import "./SignUpPage.css";
 
 const pageVariants = {
@@ -200,6 +201,7 @@ export default function SignUpPage() {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseMove={handleMouseMove}
     >
+      <PerspectiveGrid />
       <div className="signup-container">
         <div className="signup-card">
           {/* Card Header */}
