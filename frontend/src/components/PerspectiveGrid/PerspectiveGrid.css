@@ -1,13 +1,12 @@
 .perspective-grid-container {
-  position: fixed; /* Global background */
-  width: 100vw;
-  height: 100vh;
+  position: absolute; /* Changed from fixed to absolute */
+  width: 100%;
+  height: 100%;
   inset: 0;
   overflow: hidden;
-  background: black;
-  --perspective-fade-stop: #000;
-  z-index: -1; /* Stay behind content */
-  pointer-events: none;
+  background: transparent;
+  --perspective-fade-stop: #0a0f18; /* Matched to dark theme blue-black instead of raw #000 */
+  z-index: 0; /* Keep at 0 so it's not behind the parent blocking layer */
 }
 
 .global-background-grid {
