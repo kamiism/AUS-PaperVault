@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Plus, Upload, X, AlertTriangle, CheckCircle2 } from "lucide-react";
-import { addDepartment, getDepartments } from "../../../data/departments";
+import { Plus, Upload, X, AlertTriangle, CheckCircle2, Trash2 } from "lucide-react";
+import { addDepartment, deleteDepartment, getDepartments } from "../../../data/departments";
 
 export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
   const [showAddDeptForm, setShowAddDeptForm] = useState(false);
@@ -153,6 +153,26 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
       years: 5,
     });
     setDeptError("");
+  };
+
+  const handleDeleteDepartment = (dept) => {
+    if (
+      !window.confirm(
+        `Delete department "${dept.name}" (${dept.shortName})? This action cannot be undone.`,
+      )
+    ) {
+      return;
+    }
+
+    try {
+      deleteDepartment(dept.id);
+      setAllDepartments(getDepartments());
+      setDeptSuccess(`Department "${dept.name}" deleted successfully! ✓`);
+      setTimeout(() => setDeptSuccess(""), 3000);
+    } catch (err) {
+      setDeptError("Failed to delete department: " + err.message);
+      setTimeout(() => setDeptError(""), 3000);
+    }
   };
 
   return (
@@ -426,6 +446,13 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
                 title="Edit department"
               >
                 ✎
+              </button>
+              <button
+                className="admin-dept-card-delete"
+                onClick={() => handleDeleteDepartment(dept)}
+                title="Delete department"
+              >
+                <Trash2 size={14} />
               </button>
             </div>
           ))}

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Shield,
@@ -11,10 +11,12 @@ import {
   Settings,
   BarChart3,
   Book,
+  MessageSquare,
+  Users as UsersIcon,
 } from "lucide-react";
+import { checkLocalStaffAuth } from "../../data/staff";
 import { getDepartments } from "../../data/departments";
-import { getAllPapers } from "../../data/mockPapers";
-import { useSemesters, useApprovedPapers } from "../../hooks/useDepartments";
+import { useSemesters, useApprovedPapers, useAllPapers } from "../../hooks/useDepartments";
 import { apiFetch } from "../../api/api";
 import "./AdminPanel.css";
 
@@ -23,6 +25,8 @@ import ReviewTab from "./tabs/ReviewTab";
 import DepartmentsTab from "./tabs/DepartmentsTab";
 import AnalyticsTab from "./tabs/AnalyticsTab";
 import CatalogTab from "./tabs/CatalogTab";
+import FeedbackTab from "./tabs/FeedbackTab";
+import StaffTab from "./tabs/StaffTab";
 
 export default function AdminPanel() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -38,15 +42,7 @@ export default function AdminPanel() {
   const [allDepartments, setAllDepartments] = useState(() => getDepartments());
   const semestersData = useSemesters();
   const approvedPapers = useApprovedPapers();
-
-  // Combine mock papers with reactive approved papers
-  const allPapers = useMemo(
-    () => [
-      ...getAllPapers().filter((p) => !approvedPapers.some((ap) => ap.id === p.id)),
-      ...approvedPapers,
-    ],
-    [approvedPapers],
-  );
+  const allPapers = useAllPapers();
 
   // ───── ROLE-BASED ACCESS CONTROL ─────
   const hasAccessToTab = (role, tabName) => {
@@ -56,9 +52,10 @@ export default function AdminPanel() {
     const normalizedRole = role.toLowerCase().replace(/\s+/g, "_");
 
     const roleAccess = {
-      super_admin: ["review", "departments", "analytics", "catalog"],
+      super_admin: ["review", "departments", "analytics", "catalog", "feedback", "staff"],
       moderator: ["review", "departments"],
       reviewer: ["review"],
+      member: [], // Members have zero access to admin panels
     };
 
     const allowedTabs = roleAccess[normalizedRole] || [];
@@ -107,10 +104,20 @@ export default function AdminPanel() {
 
     if (data.success) {
       setAuthenticated(true);
-      setCurrentAdmin(data.data);
+      setCurrentAdmin({ username: data.username, role: data.role });
       setError("");
       setLoginAttempts(0);
     } else {
+      // ───── FRONTEND STAFF MOCK FALLBACK ─────
+      const localCheck = checkLocalStaffAuth(username, password);
+      if (localCheck.success) {
+        setAuthenticated(true);
+        setCurrentAdmin({ username: localCheck.username, role: localCheck.role });
+        setError("");
+        setLoginAttempts(0);
+        return;
+      }
+      
       const attempts = loginAttempts + 1;
       setLoginAttempts(attempts);
 
@@ -290,11 +297,29 @@ export default function AdminPanel() {
             Catalog_Management
           </button>
         )}
+        {hasAccessToTab(currentAdmin?.role, "feedback") && (
+          <button
+            className={`admin-tab-btn ${adminTab === "feedback" ? "active" : ""}`}
+            onClick={() => setAdminTab("feedback")}
+          >
+            <MessageSquare size={14} />
+            User_Feedback
+          </button>
+        )}
+        {hasAccessToTab(currentAdmin?.role, "staff") && (
+          <button
+            className={`admin-tab-btn ${adminTab === "staff" ? "active" : ""}`}
+            onClick={() => setAdminTab("staff")}
+          >
+            <UsersIcon size={14} />
+            Staff_Management
+          </button>
+        )}
       </div>
 
       <div className="admin-body">
         {adminTab === "review" && (
-          <ReviewTab currentAdmin={currentAdmin} allDepartments={allDepartments} />
+          <ReviewTab currentAdmin={currentAdmin} allDepartments={allDepartments} semestersData={semestersData} />
         )}
         {adminTab === "departments" && (
           <DepartmentsTab
@@ -313,6 +338,12 @@ export default function AdminPanel() {
             approvedPapers={approvedPapers}
             allPapers={allPapers}
           />
+        )}
+        {adminTab === "feedback" && (
+          <FeedbackTab />
+        )}
+        {adminTab === "staff" && (
+          <StaffTab />
         )}
       </div>
     </div>

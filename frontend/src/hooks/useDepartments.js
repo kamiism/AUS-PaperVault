@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { getDepartments, SEMESTERS } from "../data/departments";
-import { getApprovedPapers } from "../data/mockPapers";
+import { getApprovedPapers, getAllPapers } from "../data/mockPapers";
 
 /**
  * Custom hook to use departments with reactive updates
@@ -105,6 +105,29 @@ export function useApprovedPapers() {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener("papersUpdated", handlePapersUpdate);
+    };
+  }, []);
+
+  return papers;
+}
+
+/**
+ * Custom hook to get ALL papers (mock + approved - deleted) with reactive updates.
+ * Re-fetches whenever papers are added, approved, or deleted.
+ * @returns {Array} Array of all active question papers with live updates
+ */
+export function useAllPapers() {
+  const [papers, setPapers] = useState(() => getAllPapers());
+
+  useEffect(() => {
+    const refresh = () => setPapers(getAllPapers());
+
+    window.addEventListener("storage", refresh);
+    window.addEventListener("papersUpdated", refresh);
+
+    return () => {
+      window.removeEventListener("storage", refresh);
+      window.removeEventListener("papersUpdated", refresh);
     };
   }, []);
 

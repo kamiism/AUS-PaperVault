@@ -538,6 +538,7 @@ export function deleteMockPaper(paperId) {
   if (!deleted.includes(paperId)) {
     deleted.push(paperId);
     localStorage.setItem("deletedMockPapers", JSON.stringify(deleted));
+    window.dispatchEvent(new Event("papersUpdated"));
   }
 }
 

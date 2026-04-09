@@ -1,0 +1,125 @@
+.feedback-wrapper {
+  padding: 4rem 1rem;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.feedback-title-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feedback-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(175, 179, 247, 0.1);
+  border: 1px solid rgba(175, 179, 247, 0.2);
+  color: var(--color-vault-lavender);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.feedback-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-vault-light);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.feedback-subtitle {
+  color: var(--color-vault-steel);
+  font-size: 1.05rem;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.feedback-form {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Base form elements reuse global styles (form-group, form-label, input-cyber) */
+
+.feedback-submit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feedback-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-vault-steel);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+}
+
+.feedback-success {
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feedback-success-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-vault-success);
+  margin-bottom: 1rem;
+}
+
+.feedback-success-title {
+  font-size: 1.8rem;
+  color: var(--color-vault-light);
+  margin: 0;
+}
+
+.feedback-success-text {
+  color: var(--color-vault-steel);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .feedback-form {
+    padding: 1.5rem;
+  }
+  .feedback-submit-row {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    text-align: center;
+  }
+  .feedback-notice {
+    justify-content: center;
+  }
+}

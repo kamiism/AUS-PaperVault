@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { SlidersHorizontal, CheckCircle2, Eye, Flag, X, Upload } from "lucide-react";
 import { getPendingUploads, approveUpload, rejectUpload, getAllPapers, updatePendingUpload } from "../../../data/mockPapers";
-import { getDepartments, getSubjectsForSemester, SEMESTERS } from "../../../data/departments";
+import { getDepartments, getSubjectsForSemester } from "../../../data/departments";
 
 /** Pending uploads use numeric ids (Date.now); coerce for display. */
 function queueIdLabel(id) {
   return String(id).slice(0, 6).toUpperCase();
 }
 
-export default function ReviewTab({ currentAdmin, allDepartments }) {
+export default function ReviewTab({ currentAdmin, allDepartments, semestersData }) {
   const [now, setNow] = useState(() => Date.now());
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [actionFeedback, setActionFeedback] = useState(null);
@@ -218,7 +218,7 @@ export default function ReviewTab({ currentAdmin, allDepartments }) {
                           width: "100px",
                         }}
                       >
-                        {SEMESTERS.map((sem) => (
+                        {semestersData.map((sem) => (
                           <option key={sem} value={sem}>
                             Sem {sem}
                           </option>

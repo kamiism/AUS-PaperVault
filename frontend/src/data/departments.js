@@ -970,6 +970,26 @@ export function addDepartment(newDept) {
   return dept;
 }
 
+// Delete a department by ID
+export function deleteDepartment(deptId) {
+  const index = _departments.findIndex((d) => d.id === deptId);
+  if (index === -1) {
+    throw new Error("Department not found");
+  }
+
+  _departments.splice(index, 1);
+
+  try {
+    localStorage.setItem(
+      "aus_vault_departments",
+      JSON.stringify(serializeDepartments(_departments)),
+    );
+    window.dispatchEvent(new Event("departmentsUpdated"));
+  } catch (e) {
+    console.error("Error saving departments to localStorage:", e);
+  }
+}
+
 // Get all departments
 export function getDepartments() {
   return [..._departments];

@@ -1,15 +1,15 @@
-import { SEMESTERS } from '../../data/departments';
-import { getAllPapers } from '../../data/mockPapers';
+import { useSemesters, useAllPapers } from '../../hooks/useDepartments';
 import './SemesterSelector.css';
 
 export default function SemesterSelector({ departmentId, selectedSemester, onSelect }) {
-  const allPapers = getAllPapers();
+  const semesters = useSemesters();
+  const allPapers = useAllPapers();
 
   return (
     <div className="semester-selector">
       <h3 className="semester-selector-title">Step 1 — Select Semester</h3>
       <div className="semester-grid">
-        {SEMESTERS.map((sem) => {
+        {semesters.map((sem) => {
           const count = allPapers.filter(
             (p) => p.department === departmentId && p.semester === sem
           ).length;

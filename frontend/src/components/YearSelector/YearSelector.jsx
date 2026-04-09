@@ -1,5 +1,5 @@
 import { Calendar } from "lucide-react";
-import { getAllPapers } from "../../data/mockPapers";
+import { useAllPapers } from "../../hooks/useDepartments";
 import "./YearSelector.css";
 
 export default function YearSelector({
@@ -9,7 +9,7 @@ export default function YearSelector({
   selectedYear,
   onSelect,
 }) {
-  const allPapers = getAllPapers();
+  const allPapers = useAllPapers();
 
   // Get unique years for this subject/semester/department combination
   const availableYears = [

@@ -1,9 +1,9 @@
 import { BookOpen } from 'lucide-react';
-import { getAllPapers } from '../../data/mockPapers';
+import { useAllPapers } from '../../hooks/useDepartments';
 import './SubjectSelector.css';
 
 export default function SubjectSelector({ subjects, departmentId, semester, selectedSubject, onSelect }) {
-  const allPapers = getAllPapers();
+  const allPapers = useAllPapers();
 
   return (
     <div className="subject-selector">

@@ -182,6 +182,13 @@
   color: var(--color-vault-steel);
 }
 
+/* ───── Actions container ───── */
+.paper-card-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
 .paper-card-download {
   display: flex;
   align-items: center;
@@ -198,12 +205,93 @@
   cursor: pointer;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .paper-card-download:hover {
   background: rgba(175, 179, 247, 0.12);
   border-color: var(--color-vault-lavender);
   box-shadow: 0 0 15px rgba(175, 179, 247, 0.15);
+}
+
+/* ───── Responsive: Paper Cards ───── */
+
+/* ≤ 480px — icon-only buttons, card stacks vertically */
+@media (max-width: 480px) {
+  .paper-card {
+    flex-wrap: wrap;
+    padding: 0.75rem 0.85rem;
+    gap: 0.6rem;
+  }
+
+  .paper-card-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .paper-card-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .paper-card-info {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+
+  .paper-card-subject {
+    font-size: 0.78rem;
+  }
+
+  .paper-card-meta {
+    gap: 0.5rem;
+  }
+
+  .paper-card-tag {
+    font-size: 0.58rem;
+  }
+
+  .paper-card-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .paper-card-download {
+    flex: 1;
+    justify-content: center;
+    padding: 0.5rem 0.4rem;
+    font-size: 0.55rem;
+  }
+
+  .paper-btn-label {
+    display: none;
+  }
+}
+
+/* 481px – 640px — show labels, but compact layout */
+@media (min-width: 481px) and (max-width: 640px) {
+  .paper-card {
+    flex-wrap: wrap;
+    padding: 0.85rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .paper-card-actions {
+    width: 100%;
+  }
+
+  .paper-card-download {
+    flex: 1;
+    justify-content: center;
+    padding: 0.5rem 0.6rem;
+  }
+}
+
+/* ≥ 641px — full horizontal layout (default) */
+@media (min-width: 641px) {
+  .paper-card-actions {
+    margin-left: auto;
+  }
 }
 
 /* ───── Empty State ───── */
@@ -288,6 +376,10 @@
   color: #fff;
   letter-spacing: 0.05em;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .preview-modal-close {
@@ -302,6 +394,7 @@
   color: var(--color-vault-gray);
   cursor: pointer;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .preview-modal-close:hover {
@@ -315,7 +408,7 @@
   flex: 1;
   width: 100%;
   height: 100%;
-  background: #fff; /* PDF viewers typically need white bg for best reading */
+  background: #fff;
 }
 
 .preview-iframe {
@@ -323,6 +416,51 @@
   height: 100%;
   border: none;
   background: #fff;
+}
+
+/* ───── Responsive: Preview Modal ───── */
+@media (max-width: 640px) {
+  .preview-modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .preview-modal-content {
+    height: 92vh;
+    border-radius: 10px;
+  }
+
+  .preview-modal-header {
+    padding: 0.85rem 1rem;
+  }
+
+  .preview-modal-header h3 {
+    font-size: 0.8rem;
+  }
+
+  .mock-pdf-page {
+    padding: 1.5rem;
+    min-height: 600px;
+  }
+
+  .mock-pdf-header h2 {
+    font-size: 1rem;
+  }
+
+  .mock-pdf-header h3 {
+    font-size: 0.9rem;
+  }
+
+  .mock-pdf-meta {
+    font-size: 0.8rem;
+  }
+
+  .mock-pdf-content {
+    font-size: 0.85rem;
+  }
+
+  .mock-pdf-watermark {
+    font-size: 2.5rem;
+  }
 }
 
 /* ───── Mock PDF Viewer ───── */

@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, FileText, Search, X, Command } from "lucide-react";
-import { useDepartments } from "../../hooks/useDepartments";
-import { getPaperCountByDept } from "../../data/mockPapers";
+import { useDepartments, useAllPapers } from "../../hooks/useDepartments";
 import Tilt from "react-parallax-tilt";
 import "./DepartmentGrid.css";
 
 export default function DepartmentGrid() {
   const departments = useDepartments();
+  const allPapers = useAllPapers();
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -149,7 +149,7 @@ export default function DepartmentGrid() {
                   </div>
                   {filteredDepartments.map((dept, index) => {
                     const Icon = dept.icon;
-                    const paperCount = getPaperCountByDept(dept.id);
+                    const paperCount = allPapers.filter(p => p.department === dept.id).length;
                     return (
                       <Link
                         to={`/department/${dept.id}`}
@@ -206,7 +206,7 @@ export default function DepartmentGrid() {
         <div className="dept-grid">
           {filteredDepartments.map((dept, index) => {
             const Icon = dept.icon;
-            const paperCount = getPaperCountByDept(dept.id);
+            const paperCount = allPapers.filter(p => p.department === dept.id).length;
             return (
               <Tilt
                 key={dept.id}

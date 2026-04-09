@@ -8,6 +8,7 @@ import {
   User as UserIcon,
   Users,
   X,
+  MessageSquare,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -53,6 +54,7 @@ export default function Header() {
     { to: "/", label: "Home", icon: Home },
     { to: "/upload", label: "Upload", icon: Upload },
     { to: "/devs", label: "Devs", icon: Users },
+    { to: "/feedback", label: "Feedback", icon: MessageSquare },
   ];
 
   return (

@@ -107,7 +107,7 @@ const developers = [
     skills: ['Canva', 'Figma'],
     socials: {
       github: '#',
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/bhavik-lal-a01178279/',
       email: '#',
       website: '#',
     }

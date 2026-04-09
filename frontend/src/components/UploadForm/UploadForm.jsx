@@ -12,12 +12,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
-import { useDepartments } from "../../hooks/useDepartments";
-import { SEMESTERS, getSubjectsForSemester } from "../../data/departments";
+import { useDepartments, useSemesters } from "../../hooks/useDepartments";
+import { getSubjectsForSemester } from "../../data/departments";
 import "./UploadForm.css";
 
 export default function UploadForm() {
   const departments = useDepartments();
+  const semesters = useSemesters();
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [department, setDepartment] = useState("");
@@ -48,9 +49,6 @@ export default function UploadForm() {
       onDrop,
       accept: {
         "application/pdf": [".pdf"],
-        "image/jpeg": [".jpeg", ".jpg"],
-        "image/png": [".png"],
-        "image/webp": [".webp"],
       },
       maxSize: 10485760, // 10MB
       multiple: false,
@@ -261,7 +259,7 @@ export default function UploadForm() {
             disabled={!department}
           >
             <option value="">Select Semester</option>
-            {SEMESTERS.map((sem) => (
+            {semesters.map((sem) => (
               <option key={sem} value={sem}>
                 Semester {sem}
               </option>
@@ -305,7 +303,7 @@ export default function UploadForm() {
 
         {/* File Upload */}
         <div className="form-group">
-          <label className="form-label">Question Paper (Image / PDF)</label>
+          <label className="form-label">Question Paper (PDF)</label>
           {file ? (
             <div className="file-preview">
               <div className="file-preview-icon">
@@ -346,7 +344,7 @@ export default function UploadForm() {
               transition={{ type: "spring", damping: 20, stiffness: 300 }}
               style={{ cursor: "pointer" }}
             >
-              <input {...getInputProps()} />
+              <input {...getInputProps({ accept: ".pdf" })} />
               <motion.div
                 className="dropzone-icon"
                 animate={{ y: isDragActive ? -5 : 0 }}
@@ -366,7 +364,7 @@ export default function UploadForm() {
                   </>
                 )}
               </p>
-              <p className="dropzone-hint">PDF, JPG, PNG — Max 10MB</p>
+              <p className="dropzone-hint">PDF — Max 10MB</p>
             </motion.div>
           )}
         </div>

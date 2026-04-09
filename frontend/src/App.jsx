@@ -16,6 +16,7 @@ import AdminPage from "./pages/AdminPage";
 import DevsPage from "./pages/DevsPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import FeedbackPage from "./pages/FeedbackPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -44,6 +45,7 @@ function AppLayout() {
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/devs" element={<DevsPage />} />
+            <Route path="/feedback" element={<FeedbackPage />} />
           </Routes>
         </AnimatePresence>
       </main>

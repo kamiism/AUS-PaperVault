@@ -1,11 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { FileText, Download, FolderOpen, Eye, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { getDepartments, YEARS } from "../../data/departments";
-import { getAllPapers } from "../../data/mockPapers";
-import { useApprovedPapers } from "../../hooks/useDepartments";
+import { useAllPapers } from "../../hooks/useDepartments";
 import "./PaperList.css";
 
 export default function PaperList({
@@ -16,22 +15,11 @@ export default function PaperList({
 }) {
   const [internalYear, setInternalYear] = useState(null);
   const [previewPaper, setPreviewPaper] = useState(null);
-  const approvedPapers = useApprovedPapers();
+  const allPapers = useAllPapers();
 
   // Use prop if provided, otherwise use internal state
   const selectedYear =
     propSelectedYear !== undefined ? propSelectedYear : internalYear;
-
-  // Combine mock papers with reactive approved papers
-  const allPapers = useMemo(
-    () => [
-      ...getAllPapers().filter(
-        (p) => !approvedPapers.some((ap) => ap.id === p.id),
-      ),
-      ...approvedPapers,
-    ],
-    [approvedPapers],
-  );
 
   const filtered = allPapers.filter(
     (p) =>
@@ -115,21 +103,21 @@ export default function PaperList({
                     <span className="paper-card-tag">{paper.fileName}</span>
                   </div>
                 </div>
-                <div style={{ display: "flex", gap: "0.4rem" }}>
+                <div className="paper-card-actions">
                   <button
                     className="paper-card-download"
                     title="Quick Look preview"
                     onClick={() => setPreviewPaper(paper)}
                   >
-                    <Eye size={12} />
-                    Preview
+                    <Eye size={14} />
+                    <span className="paper-btn-label">Preview</span>
                   </button>
                   <button
                     className="paper-card-download"
                     title="Download paper"
                   >
-                    <Download size={12} />
-                    Download
+                    <Download size={14} />
+                    <span className="paper-btn-label">Download</span>
                   </button>
                 </div>
               </div>
