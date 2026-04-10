@@ -305,7 +305,6 @@ function StaffStatsCharts({ bundle }) {
 export default function StaffTab() {
   const [staffList, setStaffList] = useState([]);
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [role, setRole] = useState("Moderator");
   const [error, setError] = useState("");
   const [mockUsers, setMockUsers] = useState([]);
@@ -330,17 +329,16 @@ export default function StaffTab() {
 
   const handleAddStaff = (e) => {
     e.preventDefault();
-    if (!username.trim() || !password.trim()) {
-      setError("Username and Password are required.");
+    if (!username.trim()) {
+      setError("Username is required.");
       return;
     }
 
-    const res = addStaff(username.trim(), password.trim(), role);
+    const res = addStaff(username.trim(), "", role);
     if (!res.success) {
       setError(res.error);
     } else {
       setUsername("");
-      setPassword("");
       setRole("Moderator");
       setError("");
     }
@@ -573,17 +571,7 @@ export default function StaffTab() {
                )}
              </div>
 
-             <div className="admin-form-group">
-               <label className="admin-form-label">Temporary Password</label>
-               <input 
-                 type="text" 
-                 className="admin-form-input" 
-                 placeholder="Set a local admin password..."
-                 value={password}
-                 onChange={(e) => setPassword(e.target.value)}
-               />
-               <small style={{ color: "var(--color-vault-gray)", marginTop: "2px", fontSize: "0.55rem" }}>They will use this password to access the Admin Panel.</small>
-             </div>
+
 
              <div className="admin-form-group">
                <label className="admin-form-label">Assign Role</label>
