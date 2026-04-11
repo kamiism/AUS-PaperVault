@@ -17,13 +17,14 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import { getTotalPaperCount } from "../../data/mockPapers";
 import { useDepartments } from "../../hooks/useDepartments";
 import SearchModal from "../SearchModal/SearchModal";
 import "./Header.css";
-import logoAus from "./logo_clean.png";
+import logoAus from "./aus-logo.png";
 
 export default function Header() {
   const departments = useDepartments();
@@ -84,7 +85,13 @@ export default function Header() {
   }
 
   return (
-    <header className="header-wrapper">
+    <motion.header
+      className="header-wrapper"
+      initial={{ y: "-100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "-100%" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       {/* Skip to content link for accessibility */}
       <a href="#main-content" className="skip-to-content">
         Skip to content
@@ -180,6 +187,7 @@ export default function Header() {
                         <UserIcon size={16} />
                         <div className="user-details">
                           <p className="user-email">{user.email}</p>
+                          <p className="user-role">({user.role})</p>
                           <p className="user-name-small">Logged in</p>
                         </div>
                       </div>
@@ -262,6 +270,6 @@ export default function Header() {
 
       {/* Search Modal */}
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-    </header>
+    </motion.header>
   );
 }

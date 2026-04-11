@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import { useEffect, Suspense, lazy } from "react";
 import { AnimatePresence } from "framer-motion";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import "overlayscrollbars/overlayscrollbars.css";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -73,12 +75,18 @@ function AppLayout() {
 
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
+  const isAdminPage = location.pathname.startsWith("/admin");
 
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
 
   
     useEffect(() => {
-      if (!user || ["Member" , "Moderator" , "Reviewer"].includes(user.role)) {
+      // Wait until auth has finished loading before evaluating user role.
+      // Without this guard, user is null on first render for everyone,
+      // which causes the DevTools hook to be destroyed, blanking the page.
+      if (isLoading) return;
+
+      if (!user || ["Member", "Moderator", "Reviewer"].includes(user.role)) {
         if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === "object") {
           window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {};
         }
@@ -87,36 +95,34 @@ function AppLayout() {
         };
 
         const handleKeyDown = (e) => {
-          // F12
-        if (e.key === "F12") {
-          e.preventDefault();
-        }
+          if (e.key === "F12") e.preventDefault();
+          if (
+            (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+            (e.ctrlKey && e.key === "U")
+          ) {
+            e.preventDefault();
+          }
+        };
 
-        // Ctrl+Shift+I / J / C
-        if (
-          (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-          (e.ctrlKey && e.key === "U")
-        ) {
-          e.preventDefault();
-        }
-      };
+        document.addEventListener("contextmenu", handleContextMenu);
+        document.addEventListener("keydown", handleKeyDown);
 
-      document.addEventListener("contextmenu", handleContextMenu);
-      document.addEventListener("keydown", handleKeyDown);
-    }
-      return () => {
-        document.removeEventListener("contextmenu", handleContextMenu);
-        document.removeEventListener("keydown", handleKeyDown);
-      };
-    }, []);
+        return () => {
+          document.removeEventListener("contextmenu", handleContextMenu);
+          document.removeEventListener("keydown", handleKeyDown);
+        };
+      }
+    }, [user, isLoading]);
   
 
   return (
     <>
       <ScrollToTop />
-      <Header />
-      <main style={{ minHeight: isAuthPage ? "100vh" : "calc(100vh - 160px)" }}>
-        <AnimatePresence mode="wait">
+      <AnimatePresence>
+        {!isAdminPage && <Header />}
+      </AnimatePresence>
+      <main style={{ minHeight: (isAuthPage || isAdminPage) ? "100vh" : "calc(100vh - 160px)" }}>
+        <AnimatePresence mode={isAdminPage ? undefined : "wait"}>
           <Suspense fallback={<PageSkeleton />}>
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
@@ -132,17 +138,36 @@ function AppLayout() {
           </Suspense>
         </AnimatePresence>
       </main>
-      <Footer />
+      {!isAdminPage && <Footer />}
     </>
   );
 }
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <AppLayout />
-      </Router>
-    </AuthProvider>
+    <OverlayScrollbarsComponent
+      element="div"
+      options={{
+        scrollbars: {
+          theme: "os-theme-dark",
+          autoHide: "scroll",
+          autoHideDelay: 800,
+          autoHideSuspend: false,
+          visibility: "auto",
+          clickScroll: true,
+        },
+        overflow: {
+          x: "hidden",
+          y: "scroll",
+        },
+      }}
+      style={{ height: "100vh", width: "100%" }}
+    >
+      <AuthProvider>
+        <Router>
+          <AppLayout />
+        </Router>
+      </AuthProvider>
+    </OverlayScrollbarsComponent>
   );
 }

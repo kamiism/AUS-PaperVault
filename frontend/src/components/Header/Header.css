@@ -389,6 +389,13 @@
   white-space: nowrap;
 }
 
+.user-role {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: rgba(var(--color-vault-lavender-rgb), 0.6);
+  margin: 0;
+}
+
 .user-name-small {
   font-size: 0.7rem;
   color: rgba(var(--color-vault-lavender-rgb), 0.6);

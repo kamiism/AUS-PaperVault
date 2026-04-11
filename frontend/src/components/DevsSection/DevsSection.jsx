@@ -133,7 +133,7 @@ function DevCard({ dev, index }) {
   if (dev.socials?.linkedin) dockItems.push({ title: 'LinkedIn', icon: LinkedinIcon, href: dev.socials.linkedin });
   dockItems.push({ title: 'Instagram', icon: InstagramIcon, href: dev.socials?.instagram || '#' });
   if (dev.socials?.email) dockItems.push({ title: 'Email', icon: Mail, href: dev.socials.email });
-  dockItems.push({ title: 'Website', icon: Globe, href: dev.socials?.website || '#' });
+  // dockItems.push({ title: 'Website', icon: Globe, href: dev.socials?.website || '#' });
 
   const hasSocials = dockItems.length > 0;
 

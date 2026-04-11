@@ -35,3 +35,19 @@
   max-width: 400px;
   margin-bottom: 2rem;
 }
+
+/* Light Theme Visibility Overrides */
+[data-theme="light"] .bookmarks-empty {
+  background: rgba(var(--color-vault-card-rgb), 0.7);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .bookmarks-empty p {
+  color: var(--color-vault-gray);
+  font-weight: 500;
+}
+
+[data-theme="light"] .bookmarks-empty .empty-icon {
+  color: var(--color-vault-steel);
+  opacity: 0.8;
+}
