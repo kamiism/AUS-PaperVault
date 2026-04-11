@@ -34,6 +34,8 @@ export default function SignUpPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
 
   const { signup } = useAuth();
   const navigate = useNavigate();
@@ -115,12 +117,24 @@ export default function SignUpPage() {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      return;
+    }
+
+    // Instead of signing up immediately, show the verification modal
+    setShowVerificationModal(true);
+  };
+
+  const handleVerifyEmail = async (e) => {
+    e.preventDefault();
+    
+    if (verificationCode.length < 6) {
+      setErrors({ verify: "Please enter a valid 6-digit verification code." });
       return;
     }
 
@@ -131,12 +145,14 @@ export default function SignUpPage() {
 
       if (!data.success) {
         setErrors({ submit: "Sign up failed. Please try again." });
+        setShowVerificationModal(false);
       } else {
         localStorage.setItem("access_token", data.token);
         navigate("/");
       }
     } catch (err) {
       setErrors({ submit: "Sign up failed. Please try again." });
+      setShowVerificationModal(false);
     } finally {
       setIsLoading(false);
     }
@@ -427,6 +443,65 @@ export default function SignUpPage() {
           </form>
         </div>
       </div>
+
+      {/* Verification Modal Overlay */}
+      {showVerificationModal && (
+        <div className="verification-overlay">
+          <motion.div 
+            className="verification-modal glass-card"
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          >
+            <div className="verification-icon-wrapper">
+              <Mail size={32} />
+            </div>
+            <h2 className="verification-title">Verify your Email</h2>
+            <p className="verification-subtitle">
+              We've sent a 6-digit verification code to <strong>{formData.email || "your email"}</strong>.
+            </p>
+            
+            <form onSubmit={handleVerifyEmail} className="verification-form">
+              <div className="form-group">
+                <input
+                  type="text"
+                  placeholder="Enter 6-digit code"
+                  className="form-input text-center"
+                  style={{ fontSize: "1.25rem", letterSpacing: "0.25em" }}
+                  maxLength={6}
+                  value={verificationCode}
+                  onChange={(e) => {
+                    setVerificationCode(e.target.value.replace(/\D/g, ""));
+                    if(errors.verify) setErrors({...errors, verify: null});
+                  }}
+                  autoFocus
+                />
+                {errors.verify && (
+                  <span className="error-text text-center" style={{marginTop: "0.5rem", display: "block"}}>{errors.verify}</span>
+                )}
+              </div>
+              
+              <div className="verification-actions">
+                <button 
+                  type="button" 
+                  className="btn-cyber" 
+                  onClick={() => setShowVerificationModal(false)}
+                  disabled={isLoading}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="btn-cyber-solid"
+                  disabled={isLoading || verificationCode.length < 6}
+                >
+                  {isLoading ? "Verifying..." : "Verify & Sign Up"}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </AuthLayout>
   );
 }
