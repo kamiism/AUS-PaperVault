@@ -91,7 +91,7 @@ const developers = [
       linkedin: 'https://www.linkedin.com/in/nilanjan-kumar-roy-186260380/',
       email: 'mailto:kumarroynilanjan@gmail.com',
       website: '#',
-      instagram: '#',
+      instagram: 'https://www.instagram.com/n_k4mii_/',
     },
   },
   {
@@ -106,7 +106,7 @@ const developers = [
       linkedin: 'https://www.linkedin.com/in/anirban-nath-42a63b25b/',
       email: 'mailto:anirbandev0101@gmail.com',
       website: '#',
-      instagram: '#',
+      instagram: 'https://www.instagram.com/anirban.dev_/',
     },
   },
   {
@@ -121,7 +121,7 @@ const developers = [
       linkedin: 'https://www.linkedin.com/in/bhavik-lal-a01178279/',
       email: 'mailto:bhaviklal5248@gmail.com',
       website: '#',
-      instagram: '#',
+      instagram: 'https://www.instagram.com/bhavik._.lal/',
     }
   }
 ];
