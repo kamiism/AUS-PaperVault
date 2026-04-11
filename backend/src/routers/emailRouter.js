@@ -26,7 +26,7 @@ emailRouter.post("/send-verification", async (req, res) => {
         const user = await User.findOne({ $or: [{ username }, { email }] });
 
         if (user) {
-            return sendError(res, "User already exists", STATUS_CODES.NOT_FOUND);
+            return sendError(res, "An account with this username or email already exists", STATUS_CODES.CONFLICT);
         }
 
 

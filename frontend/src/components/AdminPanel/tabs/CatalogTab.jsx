@@ -685,7 +685,7 @@ export default function CatalogTab({
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))",
               gap: "0.75rem",
               marginBottom: "2rem",
             }}
@@ -702,6 +702,8 @@ export default function CatalogTab({
                   border: "1px solid rgba(175, 179, 247, 0.1)",
                   borderRadius: "6px",
                   fontSize: "0.875rem",
+                  whiteSpace: "nowrap",
+                  gap: "0.5rem",
                 }}
               >
                 <span>Semester {sem}</span>

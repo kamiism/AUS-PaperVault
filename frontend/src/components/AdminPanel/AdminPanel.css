@@ -806,10 +806,10 @@
   max-height: min(420px, 70vh);
   display: flex;
   flex-direction: column;
-  background: rgba(16, 18, 28, 0.98);
+  background: rgba(var(--color-vault-card-rgb), 0.98);
   border: 1px solid rgba(var(--color-vault-lavender-rgb), 0.12);
   border-radius: 10px;
-  box-shadow: 0 16px 48px rgba(var(--color-vault-black-rgb), 0.55);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
   z-index: 1100;
   overflow: hidden;
   animation: slideUp 0.2s ease forwards;
@@ -875,12 +875,12 @@
   border: none;
   cursor: pointer;
   padding: 0.25rem 0.35rem;
-  transition: color 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .admin-notif-clear-all:hover {
   text-decoration: underline;
-  color: #fca5a5;
+  opacity: 0.8;
 }
 
 .admin-notif-list {
@@ -1807,7 +1807,8 @@ select.admin-form-input option {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(var(--color-vault-black-rgb), 0.6);
+  /* Use fixed black for overlay even in light mode so the screen dims */
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(6px);
   animation: fadeIn 0.15s ease;
 }
@@ -1821,10 +1822,10 @@ select.admin-form-input option {
   position: relative;
   width: min(420px, calc(100vw - 2rem));
   padding: 2rem 2rem 1.5rem;
-  background: rgba(16, 18, 28, 0.98);
+  background: rgba(var(--color-vault-card-rgb), 0.98);
   border: 1px solid rgba(var(--color-vault-lavender-rgb), 0.15);
   border-radius: 14px;
-  box-shadow: 0 24px 64px rgba(var(--color-vault-black-rgb), 0.6),
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15),
               0 0 40px rgba(var(--color-vault-lavender-rgb), 0.05);
   text-align: center;
   animation: modalSlideIn 0.2s ease;
@@ -1917,14 +1918,14 @@ select.admin-form-input option {
 
 .confirm-modal-confirm--warning {
   color: var(--color-vault-text);
-  background: rgba(251, 191, 36, 0.2);
-  border: 1px solid rgba(251, 191, 36, 0.4);
+  background: rgba(var(--color-vault-warning-rgb), 0.2);
+  border: 1px solid rgba(var(--color-vault-warning-rgb), 0.4);
 }
 
 .confirm-modal-confirm--warning:hover {
-  background: rgba(251, 191, 36, 0.35);
-  border-color: rgba(251, 191, 36, 0.6);
-  box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+  background: rgba(var(--color-vault-warning-rgb), 0.35);
+  border-color: rgba(var(--color-vault-warning-rgb), 0.6);
+  box-shadow: 0 0 20px rgba(var(--color-vault-warning-rgb), 0.2);
 }
 
 .confirm-modal-close {

@@ -142,11 +142,11 @@ export default function SignUpPage() {
         setIsSendingCode(false);
         return;
       }
-      throw new Error("Error in sending otp");
+      throw new Error(otpRes.message || "Error in sending otp");
     } catch (err) {
       console.log(err);
       setIsSendingCode(false);
-      setErrors({ submit: "Sign up failed. Please try again." });
+      setErrors({ submit: err.message || "Sign up failed. Please try again." });
     }
   };
 
@@ -171,12 +171,14 @@ export default function SignUpPage() {
       if (verifyOtp.success) {
         const data = await signup(formData);
         if (!data.success) {
-          throw new Error("Error in signing up");
+          throw new Error(data.message || "Error in signing up");
         }
         navigate("/");
+      } else {
+        throw new Error(verifyOtp.message || "Verification failed");
       }
     } catch (err) {
-      setErrors({ submit: "Sign up failed. Please try again." });
+      setErrors({ submit: err.message || "Sign up failed. Please try again." });
       setShowVerificationModal(false);
     } finally {
       setIsLoading(false);
