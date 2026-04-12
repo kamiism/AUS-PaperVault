@@ -5,6 +5,7 @@ import checkStaff from "../utils/checkStaff.js";
 import staffSchema, { updateStaffSchema } from "../types/staffSchema.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import User from "../models/user.model.js";
+import { ROLES } from "../roles.js";
 
 const staffRouter = Router();
 
@@ -27,7 +28,7 @@ staffRouter.post("/auth", async (req, res) => {
 
 staffRouter.get("/user-list", authMiddleware, async (req, res) => {
     try {
-        if (res.user.role != "Super Admin") {
+        if (res.user.role != ROLES.SUPER_ADMIN) {
             return sendError(res, "Not authorized", STATUS_CODES.UNAUTHORIZED);
         }
 
@@ -47,11 +48,11 @@ staffRouter.get("/user-list", authMiddleware, async (req, res) => {
 
 staffRouter.get("/staff-list", authMiddleware, async (req, res) => {
     try {
-        if (res.user.role != "Super Admin") {
+        if (res.user.role != ROLES.SUPER_ADMIN) {
             return sendError(res, "Not authorized", STATUS_CODES.UNAUTHORIZED);
         }
 
-        const staff = await User.find({ role: { $ne: "Member" } });
+        const staff = await User.find({ role: { $ne: ROLES.MEMBER } });
         sendSuccess(res, "Users fetched successfully", STATUS_CODES.SUCCESS, {
             staff,
         });
@@ -67,7 +68,7 @@ staffRouter.get("/staff-list", authMiddleware, async (req, res) => {
 
 staffRouter.post("/update-stuff", authMiddleware, async (req, res) => {
     try {
-        if (res.user.role != "Super Admin") {
+        if (res.user.role != ROLES.SUPER_ADMIN) {
             return sendError(res, "Not authorized", STATUS_CODES.UNAUTHORIZED);
         }
 
@@ -78,7 +79,13 @@ staffRouter.post("/update-stuff", authMiddleware, async (req, res) => {
         }
 
         const user = await User.findOne({ username: data.username });
-
+        if (user.role == ROLES.SUPER_ADMIN) {
+            return sendError(
+                res,
+                "Cannot update root user",
+                STATUS_CODES.FORBIDDEN
+            );
+        }
         user.role = data.role;
         await user.save();
 
