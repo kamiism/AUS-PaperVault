@@ -5,6 +5,7 @@ export const apiFetch = async (endpoint, method = "GET", options = {}) => {
         method: method,
         headers: {
             "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
             ...(options.headers || {}),
         },
         credentials : "include"
