@@ -135,7 +135,7 @@ export const sendVerificationEmail = async (
                       Secure Notification System
                     </p>
                     <p style="color: #52667a; font-size: 11px; margin: 0; line-height: 1.5;">
-                      &copy; ${new Date().getFullYear()} AUS PaperVault. All rights reserved.<br>
+                      &copy; ${new Date().getFullYear().toString()} AUS PaperVault. All rights reserved.<br>
                       This is an automated system message. Do not reply.
                     </p>
                   </td>
@@ -199,7 +199,7 @@ export const sendWelcomeEmail = async (email, username) => {
                     <hr style="border: none; border-top: 1px solid #ddd; margin: 25px 0;">
                     
                     <p style="color: #999; font-size: 12px; text-align: center; margin-top: 20px;">
-                        © ${new Date().getFullYear()} AUS PaperVault. All rights reserved.
+                        © ${new Date().getFullYear().toString()} AUS PaperVault. All rights reserved.
                     </p>
                 </div>
             </div>
