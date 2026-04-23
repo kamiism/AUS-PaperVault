@@ -1,14 +1,7 @@
-import feedbackPdf from "../FEEDBACK.pdf";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
-/**
- * PDF preview area.
- * Always embeds the bundled FEEDBACK.pdf as a preview example.
- * When the backend adds a file-serving endpoint (e.g. GET /files/view/:id),
- * replace `feedbackPdf` with the constructed URL.
- */
 export default function ReviewPreview({ selected }) {
-  //   const previewUrl = `${API_BASE}/files/view/${selected?._id}`;
-  const previewUrl = `http://localhost:3000/uploads${selected.path.split("uploads")[1]}`;
+  const previewUrl = `${BASE_URL}/uploads${selected.path.split("uploads")[1]}`;
 
   return (
     <div className="admin-preview-area">
