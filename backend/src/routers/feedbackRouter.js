@@ -116,23 +116,38 @@ feedbackRouter.delete("/delete/:id", authMiddleware, async (req, res) => {
 
 feedbackRouter.post("/edit", authMiddleware, async (req, res) => {
     try {
-        const user = await Feedback.findOne({
-            $or: [{ username: req.user.username }, { email: req.user.email }],
-        });
+        if (
+            req.user.role == ROLES.SUPER_ADMIN ||
+            req.user.role == ROLES.MODERATOR
+        ) {
+            const user = await Feedback.findOne({
+                $or: [
+                    { username: req.user.username },
+                    { email: req.user.email },
+                ],
+            });
 
-        if (!user) {
-            return sendError(
+            if (!user) {
+                return sendError(
+                    res,
+                    "No feedback exists with the user",
+                    STATUS_CODES.NOT_FOUND
+                );
+            }
+
+            user.message = req.body.editedMessage;
+            await user.save();
+            sendSuccess(
                 res,
-                "No feedback exists with the user",
-                STATUS_CODES.NOT_FOUND
+                "Feedback edited successfully",
+                STATUS_CODES.SUCCESS,
+                {
+                    message: user.message,
+                }
             );
+        } else {
+            sendError(res, "Not authorized", STATUS_CODES.UNAUTHORIZED);
         }
-
-        user.message = req.body.editedMessage;
-        await user.save();
-        sendSuccess(res, "Feedback edited successfully", STATUS_CODES.SUCCESS, {
-            message: user.message,
-        });
     } catch (err) {
         console.log(err.message);
         sendError(
