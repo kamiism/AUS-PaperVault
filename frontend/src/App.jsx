@@ -11,6 +11,7 @@ import "overlayscrollbars/overlayscrollbars.css";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import FloatingActions from "./components/FloatingActions/FloatingActions";
 
 // Eager loaded for instant LCP
 import HomePage from "./pages/HomePage";
@@ -120,6 +121,7 @@ function AppLayout() {
   return (
     <>
       <ScrollToTop />
+      <FloatingActions />
       <AnimatePresence initial={false}>
         {!isAdminPage && <Header key="header" />}
       </AnimatePresence>

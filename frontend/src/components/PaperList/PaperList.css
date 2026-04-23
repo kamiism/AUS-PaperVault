@@ -182,6 +182,33 @@
   color: var(--color-vault-steel);
 }
 
+.paper-card-uploader {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-vault-gray);
+  margin-top: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  background: rgba(var(--color-vault-lavender-rgb), 0.05);
+  border: 1px solid rgba(var(--color-vault-lavender-rgb), 0.15);
+  border-radius: 4px;
+}
+
+.paper-card-uploader svg {
+  color: var(--color-vault-lavender);
+}
+
+.paper-card-uploader span {
+  color: var(--color-vault-steel);
+}
+
+.paper-card-uploader .uploader-name {
+  color: var(--color-vault-lavender);
+  font-weight: 600;
+}
+
 /* ───── Actions container ───── */
 .paper-card-actions {
   display: flex;

@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   ArrowRight,
   AlertCircle,
+  Ghost,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
@@ -34,6 +35,7 @@ export default function UploadForm() {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadError, setUploadError] = useState(null);
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const fileRef = useRef();
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -77,6 +79,7 @@ export default function UploadForm() {
     formData.append("subject", subject);
     formData.append("year", year);
     formData.append("file", file);
+    formData.append("isAnonymous", isAnonymous);
 
     const token = localStorage.getItem("access_token");
     const xhr = new XMLHttpRequest();
@@ -130,6 +133,7 @@ export default function UploadForm() {
     setSemester("");
     setYear("");
     setFile(null);
+    setIsAnonymous(false);
     setSubmitted(false);
     setUploadError(null);
     setUploadProgress(0);
@@ -391,6 +395,31 @@ export default function UploadForm() {
               <p className="dropzone-hint">PDF — Max 10MB</p>
             </motion.div>
           )}
+        </div>
+
+        {/* Anonymous Toggle */}
+        <div 
+          className={`anonymous-toggle-container ${isAnonymous ? 'active' : ''}`}
+          onClick={() => setIsAnonymous(!isAnonymous)}
+        >
+          <div className="anonymous-toggle-icon">
+            <Ghost size={20} />
+          </div>
+          <div className="anonymous-toggle-text">
+            <div className="anonymous-toggle-title">Upload Anonymously</div>
+            <div className="anonymous-toggle-desc">Hide my name when others view this paper</div>
+          </div>
+          <label className="anonymous-toggle" onClick={(e) => e.stopPropagation()}>
+            <input
+              type="checkbox"
+              checked={isAnonymous}
+              onChange={(e) => setIsAnonymous(e.target.checked)}
+              style={{ display: 'none' }}
+            />
+            <div className={`toggle-track ${isAnonymous ? 'active' : ''}`}>
+              <div className="toggle-thumb" />
+            </div>
+          </label>
         </div>
 
         {/* Submit */}

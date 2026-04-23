@@ -322,3 +322,105 @@
   flex-direction: column;
   gap: 0.75rem;
 }
+
+/* ───── Anonymous Toggle ───── */
+.anonymous-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin-top: 0.5rem;
+  background: rgba(var(--color-vault-card-rgb), 0.4);
+  border: 1px solid rgba(var(--color-vault-lavender-rgb), 0.15);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.anonymous-toggle-container:hover {
+  background: rgba(var(--color-vault-lavender-rgb), 0.05);
+  border-color: rgba(var(--color-vault-lavender-rgb), 0.3);
+}
+
+.anonymous-toggle-container.active {
+  background: rgba(var(--color-vault-lavender-rgb), 0.08);
+  border-color: rgba(var(--color-vault-lavender-rgb), 0.4);
+  box-shadow: 0 4px 15px rgba(var(--color-vault-lavender-rgb), 0.1);
+}
+
+.anonymous-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(var(--color-vault-lavender-rgb), 0.1);
+  border-radius: 50%;
+  color: var(--color-vault-lavender);
+  transition: all 0.3s ease;
+}
+
+.anonymous-toggle-container.active .anonymous-toggle-icon {
+  background: var(--color-vault-lavender);
+  color: var(--color-vault-darker);
+  box-shadow: 0 0 12px rgba(var(--color-vault-lavender-rgb), 0.4);
+}
+
+.anonymous-toggle-text {
+  flex: 1;
+}
+
+.anonymous-toggle-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-vault-text);
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+  transition: color 0.3s ease;
+}
+
+.anonymous-toggle-container.active .anonymous-toggle-title {
+  color: var(--color-vault-lavender);
+}
+
+.anonymous-toggle-desc {
+  font-size: 0.8rem;
+  color: var(--color-vault-steel);
+}
+
+.anonymous-toggle {
+  cursor: pointer;
+  display: flex;
+}
+
+.toggle-track {
+  width: 40px;
+  height: 22px;
+  background: rgba(var(--color-vault-lavender-rgb), 0.15);
+  border-radius: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(var(--color-vault-lavender-rgb), 0.2);
+}
+
+.toggle-track.active {
+  background: var(--color-vault-lavender);
+  border-color: var(--color-vault-lavender);
+}
+
+.toggle-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--color-vault-steel);
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-track.active .toggle-thumb {
+  background: #fff;
+  transform: translateX(18px);
+}

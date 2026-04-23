@@ -42,6 +42,7 @@ fileRouter.post(
                 fileName: req.file.filename,
                 fileSize: req.file.size,
                 mimeType: req.file.mimetype,
+                isAnonymous: data.isAnonymous === "true",
             });
 
             // Emits notification over web sockets globally

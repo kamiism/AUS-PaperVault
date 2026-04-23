@@ -5,4 +5,5 @@ export const uploadSchema = z.object({
     semester: z.string(),
     subject: z.string(),
     year: z.string(),
+    isAnonymous: z.string().optional(),
 });

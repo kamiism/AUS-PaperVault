@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { FileText, Download, FolderOpen, Eye, X, Bookmark, BookmarkCheck } from "lucide-react";
+import { FileText, Download, FolderOpen, Eye, X, Bookmark, BookmarkCheck, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { getDepartments, YEARS } from "../../data/departments";
@@ -118,6 +118,10 @@ export default function PaperList({
                         ↓ {getDownloadCount(paper.id)}
                       </span>
                     )}
+                  </div>
+                  <div className="paper-card-uploader">
+                    <User size={12} />
+                    <span>Uploaded by:</span> <span className="uploader-name">{paper.isAnonymous ? "Anonymous" : (paper.uploaderName || "Vault Admin")}</span>
                   </div>
                 </div>
                 <div className="paper-card-actions">

@@ -486,6 +486,8 @@ export function addPendingUpload(upload) {
     id: Date.now(),
     submittedAt: new Date().toISOString(),
     status: "pending",
+    isAnonymous: upload?.isAnonymous === true || upload?.isAnonymous === "true",
+    uploaderName: "Current User",
   };
   pending.push(newUpload);
   localStorage.setItem("pendingUploads", JSON.stringify(pending));
