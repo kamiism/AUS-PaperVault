@@ -19,13 +19,13 @@ export function getTimeAgo(timestamp, now = Date.now()) {
   return `${Math.floor(hrs / 24)}d ago`;
 }
 
-/** Resolve a department ID to its full name. */
+/** Resolve a department slug to its full name. */
 export function getDeptName(deptId, allDepartments = []) {
   const dept = allDepartments.find((d) => d.id === deptId);
   return dept ? dept.name : deptId || "Unknown";
 }
 
-/** Resolve a department ID to its short code. */
+/** Resolve a department slug to its short code. */
 export function getDeptShort(deptId, allDepartments = []) {
   const dept = allDepartments.find((d) => d.id === deptId);
   return dept ? dept.shortName : String(deptId || "").toUpperCase();

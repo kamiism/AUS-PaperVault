@@ -13,20 +13,6 @@ export default function DepartmentsAddForm({
     <div className="admin-add-dept-form-container">
       <form className="admin-add-dept-form" onSubmit={handleAddDepartment}>
         <div className="admin-form-group">
-          <label className="admin-form-label">Department ID</label>
-          <input
-            type="text"
-            className="admin-form-input"
-            placeholder="e.g., mechanical, civil, petroleum"
-            value={newDeptForm.id}
-            onChange={(e) => setNewDeptForm({ ...newDeptForm, id: e.target.value })}
-          />
-          <small className="admin-form-hint">
-            Unique identifier (lowercase, use hyphens for spaces)
-          </small>
-        </div>
-
-        <div className="admin-form-group">
           <label className="admin-form-label">Full Name</label>
           <input
             type="text"
@@ -120,7 +106,6 @@ export default function DepartmentsAddForm({
             onClick={() => {
               setShowAddDeptForm(false);
               setNewDeptForm({
-                id: "",
                 name: "",
                 shortName: "",
                 color: "#92bcea",

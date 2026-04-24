@@ -16,7 +16,6 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
   const [confirmDelete, setConfirmDelete] = useState(null);
 
   const [newDeptForm, setNewDeptForm] = useState({
-    id: "",
     name: "",
     shortName: "",
     color: "#92bcea",
@@ -25,7 +24,6 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
   });
 
   const [editDeptForm, setEditDeptForm] = useState({
-    id: "",
     name: "",
     shortName: "",
     color: "#92bcea",
@@ -38,10 +36,6 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
     setDeptError("");
     setDeptSuccess("");
 
-    if (!newDeptForm.id.trim()) {
-      setDeptError("Department ID is required");
-      return;
-    }
     if (!newDeptForm.name.trim()) {
       setDeptError("Department name is required");
       return;
@@ -52,7 +46,7 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
     }
 
     try {
-      const deptId = newDeptForm.id.toLowerCase().replace(/\s+/g, "-");
+      const deptId = newDeptForm.name.toLowerCase().replace(/\s+/g, "-");
       const semesterCount = parseInt(newDeptForm.semesters) || 8;
       const yearsCount = parseInt(newDeptForm.years) || 5;
 
@@ -76,7 +70,6 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
       });
 
       setNewDeptForm({
-        id: "",
         name: "",
         shortName: "",
         color: "#92bcea",
@@ -95,7 +88,6 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
   const handleEditDepartment = (dept) => {
     setEditingDeptId(dept.id);
     setEditDeptForm({
-      id: dept.id,
       name: dept.name,
       shortName: dept.shortName,
       color: dept.color,
@@ -165,7 +157,6 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
     setShowEditForm(false);
     setEditingDeptId(null);
     setEditDeptForm({
-      id: "",
       name: "",
       shortName: "",
       color: "#92bcea",

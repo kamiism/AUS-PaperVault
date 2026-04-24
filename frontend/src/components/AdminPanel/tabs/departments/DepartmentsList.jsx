@@ -20,7 +20,6 @@ export default function DepartmentsList({
             <div className="admin-dept-card-content">
               <h4 className="admin-dept-card-name">{dept.name}</h4>
               <p className="admin-dept-card-code">{dept.shortName}</p>
-              <span className="admin-dept-card-id">[{dept.id}]</span>
               <div className="admin-dept-card-meta">
                 <small>{dept.semesterCount || 8} Semesters</small>
                 <small>{dept.yearsCount || 5} Years</small>

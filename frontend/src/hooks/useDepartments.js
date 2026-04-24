@@ -35,8 +35,8 @@ export function useDepartments() {
 }
 
 /**
- * Get a specific department by ID with reactive updates
- * @param {string} deptId - Department ID to find
+ * Get a specific department by slug with reactive updates
+ * @param {string} deptId - Department slug to find
  * @returns {Object|null} Department object or null if not found
  */
 export function useDepartment(deptId) {

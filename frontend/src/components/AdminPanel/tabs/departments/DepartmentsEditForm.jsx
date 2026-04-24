@@ -12,11 +12,6 @@ export default function DepartmentsEditForm({
     <div className="admin-add-dept-form-container">
       <form className="admin-add-dept-form" onSubmit={handleSaveEditDepartment}>
         <div className="admin-form-group">
-          <label className="admin-form-label">Department ID (Read-only)</label>
-          <input type="text" className="admin-form-input" value={editDeptForm.id} disabled />
-        </div>
-
-        <div className="admin-form-group">
           <label className="admin-form-label">Full Name</label>
           <input
             type="text"
