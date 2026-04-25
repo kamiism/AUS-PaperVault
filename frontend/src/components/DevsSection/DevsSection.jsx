@@ -65,6 +65,21 @@ const techStack = [
 
 const developers = [
   {
+    name: 'Anirban Nath',
+    image: Adih,
+    role: 'Backend Developer',
+    dept: 'CSE, TSSOT',
+    bio: 'Architect of the unseen, turning complex data into scalable reality.',
+    skills: ['Python', 'Express', 'PostgreSQL', 'Docker', 'Linux'],
+    socials: {
+      github: 'https://github.com/anirbandotdev',
+      linkedin: 'https://www.linkedin.com/in/anirban-nath-42a63b25b/',
+      email: 'mailto:anirbandev0101@gmail.com',
+      website: '#',
+      instagram: 'https://www.instagram.com/anirban.dev_/',
+    },
+  },
+  {
     name: 'Bidyut Priyam Kumar',
     image: Niigadyut,
     role: 'Full Stack Developer',
@@ -92,21 +107,6 @@ const developers = [
       email: 'mailto:kumarroynilanjan@gmail.com',
       website: '#',
       instagram: 'https://www.instagram.com/n_k4mii_/',
-    },
-  },
-  {
-    name: 'Anirban Nath',
-    image: Adih,
-    role: 'Backend Developer',
-    dept: 'CSE, TSSOT',
-    bio: 'Architect of the unseen, turning complex data into scalable reality.',
-    skills: ['Python', 'Express', 'PostgreSQL', 'Docker', 'Linux'],
-    socials: {
-      github: 'https://github.com/anirbandotdev',
-      linkedin: 'https://www.linkedin.com/in/anirban-nath-42a63b25b/',
-      email: 'mailto:anirbandev0101@gmail.com',
-      website: '#',
-      instagram: 'https://www.instagram.com/anirban.dev_/',
     },
   },
   {
