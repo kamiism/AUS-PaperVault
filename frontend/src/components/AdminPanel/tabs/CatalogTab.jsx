@@ -7,6 +7,8 @@ import CatalogNav from "./catalog/CatalogNav";
 import CatalogSubjects from "./catalog/CatalogSubjects";
 import CatalogSemesters from "./catalog/CatalogSemesters";
 import CatalogPapers from "./catalog/CatalogPapers";
+import { apiFetch } from "../../../api/api";
+import getDepartments from "../../../data/departments";
 
 export default function CatalogTab({
   allDepartments,
@@ -33,46 +35,35 @@ export default function CatalogTab({
   // Confirmation modal state: { type, title, message, payload }
   const [confirmAction, setConfirmAction] = useState(null);
 
-  const handleAddSubject = (deptId, semester, subjectName) => {
+  const handleAddSubject = async (deptId, semester, subjectName) => {
     if (!subjectName.trim()) {
       setDeptError("Please enter a subject name");
       setTimeout(() => setDeptError(""), 3000);
       return;
     }
-
     try {
-      const updatedDepts = allDepartments.map((dept) => {
-        if (dept.id === deptId) {
-          const updatedDept = { ...dept, semesters: { ...dept.semesters } };
-          if (!updatedDept.semesters[semester])
-            updatedDept.semesters[semester] = [];
-          else
-            updatedDept.semesters[semester] = [...updatedDept.semesters[semester]];
-
-          if (!updatedDept.semesters[semester].includes(subjectName)) {
-            updatedDept.semesters[semester] = [
-              ...updatedDept.semesters[semester],
-              subjectName,
-            ];
-          }
-          return updatedDept;
+      const res = await apiFetch("/department/subject/add" , "POST" , {
+        headers: {
+          authorization : `Bearer ${localStorage.getItem("access_token")}`
+        },
+        body: {
+          deptId,
+          semester: String(semester),
+          subject: subjectName,
         }
-        return dept;
       });
+      if(!res.sucess) {
+        setDeptError(res.message || res.error);
+        return;
+      }
+      const updatedDepts = await getDepartments();
 
-      const serializeDepts = updatedDepts.map((dept) => ({
-        ...dept,
-        iconName: dept.icon?.name || "Monitor",
-      }));
-
-      localStorage.setItem("aus_vault_departments", JSON.stringify(serializeDepts));
       setAllDepartments(updatedDepts);
       window.dispatchEvent(new Event("departmentsUpdated"));
 
-      const dname = allDepartments.find((d) => d.id === deptId)?.name || deptId;
       notifySuperAdminEvent({
         title: "Catalog: subject added",
-        body: `Added "${subjectName}" to ${dname}, semester ${semester}.`,
+        body: `Added "${subjectName}" to ${res.department.fullName}, semester ${semester}.`,
         linkTab: "catalog",
         type: "catalog",
       });
@@ -86,34 +77,30 @@ export default function CatalogTab({
     }
   };
 
-  const handleDeleteSubject = (deptId, semester, subjectName) => {
+  const handleDeleteSubject = async (deptId, semester, subjectName) => {
     try {
-      const updatedDepts = allDepartments.map((dept) => {
-        if (dept.id === deptId) {
-          const updatedDept = { ...dept, semesters: { ...dept.semesters } };
-          if (updatedDept.semesters[semester]) {
-            updatedDept.semesters[semester] = updatedDept.semesters[semester].filter(
-              (s) => s !== subjectName,
-            );
-          }
-          return updatedDept;
+
+      const res = await apiFetch("/department/subject/delete" , "POST" , {
+        headers: {
+          authorization : `Bearer ${localStorage.getItem("access_token")}`
+        },
+        body: {
+          deptId,
+          semester: String(semester),
+          subject: subjectName,
         }
-        return dept;
       });
-
-      const serializeDepts = updatedDepts.map((dept) => ({
-        ...dept,
-        iconName: dept.icon?.name || "Monitor",
-      }));
-
-      localStorage.setItem("aus_vault_departments", JSON.stringify(serializeDepts));
+      if(!res.sucess) {
+        setDeptError(res.message || res.error);
+        return;
+      }
+      const updatedDepts = await getDepartments();
       setAllDepartments(updatedDepts);
       window.dispatchEvent(new Event("departmentsUpdated"));
 
-      const dnameDel = allDepartments.find((d) => d.id === deptId)?.name || deptId;
       notifySuperAdminEvent({
         title: "Catalog: subject removed",
-        body: `Removed "${subjectName}" from ${dnameDel}, semester ${semester}.`,
+        body: `Removed "${subjectName}" from ${res.department.fullName}, semester ${semester}.`,
         linkTab: "catalog",
         type: "catalog",
       });
