@@ -50,6 +50,7 @@
   justify-content: center;
   background: rgba(var(--color-vault-lavender-rgb), 0.1);
   border: 1px solid rgba(var(--color-vault-lavender-rgb), 0.2);
+  border-radius: 50%;
 }
 
 .footer-logo-icon svg {

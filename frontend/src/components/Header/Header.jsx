@@ -25,7 +25,7 @@ import { getTotalPaperCount } from "../../data/mockPapers";
 import { useDepartments } from "../../hooks/useDepartments";
 import SearchModal from "../SearchModal/SearchModal";
 import "./Header.css";
-import logoAus from "./aus-logo.png";
+import logoAus from "../Logo/aus-logo1.png";
 
 export default function Header() {
   const { departments } = useDepartments();

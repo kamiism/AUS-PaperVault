@@ -1,7 +1,7 @@
 import { Bell, Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, color } from "framer-motion";
 import { useNotifications } from "../../context/NotificationContext";
 import "./FloatingActions.css";
 
@@ -14,7 +14,7 @@ export default function FloatingActions() {
     {
       id: "notifications",
       icon: Bell,
-      label: "Updates",
+      label: "Notifications",
       color: "var(--color-vault-lavender)",
       hasIndicator: unreadCount > 0,
       onClick: togglePopup

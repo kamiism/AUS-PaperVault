@@ -64,7 +64,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid rgba(var(--action-color-rgb), 0.2);
+  border: 2px solid rgba(var(--action-color-rgb), 0.2);
   color: var(--color-vault-steel);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 4px 12px rgba(var(--color-vault-black-rgb), 0.2);

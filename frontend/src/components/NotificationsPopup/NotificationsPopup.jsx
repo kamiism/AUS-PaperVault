@@ -64,9 +64,9 @@ export default function NotificationsPopup() {
                   <Zap size={20} />
                 </div>
                 <div>
-                  <h2 className="notifpop-header-title">System_Updates</h2>
+                  <h2 className="notifpop-header-title">Notifications</h2>
                   <p className="notifpop-header-sub">
-                    {notifications.length} update{notifications.length !== 1 ? "s" : ""}
+                    {notifications.length} notifications{notifications.length !== 1 ? "s" : ""}
                   </p>
                 </div>
               </div>
@@ -83,7 +83,7 @@ export default function NotificationsPopup() {
                     <Bell size={36} />
                   </div>
                   <h3>All Clear</h3>
-                  <p>No system updates at the moment. You&apos;re all caught up.</p>
+                  <p>No notifications at the moment. <br/> You&apos;re all caught up.</p>
                 </div>
               ) : (
                 <div className="notifpop-list">

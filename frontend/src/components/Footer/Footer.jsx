@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FileText } from 'lucide-react';
 import './Footer.css';
+import logoAus from "../Logo/aus-logo1.png";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -13,7 +14,7 @@ export default function Footer() {
           <div className="footer-brand">
             <div className="footer-logo">
               <div className="footer-logo-icon">
-                <FileText />
+                <img src={logoAus} alt="AUS PaperVault Logo" className="logo-image" />
               </div>
               <div className="footer-logo-text">
                 AUS <span>PAPERVAULT</span>
