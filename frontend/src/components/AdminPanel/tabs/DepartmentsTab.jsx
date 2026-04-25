@@ -114,7 +114,7 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
     }
 
     try {
-      const res = apiFetch(`/department/update/${editingDeptId}`, "PUT", {
+      const res = await apiFetch(`/department/update/${editingDeptId}`, "PUT", {
         headers: {
           authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
@@ -175,7 +175,7 @@ export default function DepartmentsTab({ allDepartments, setAllDepartments }) {
     setConfirmDelete(null);
 
     try {
-      deleteDepartment(dept._id);
+      await deleteDepartment(dept._id);
       const depts = await getDepartments();
       setAllDepartments(depts);
       window.dispatchEvent(new Event("departmentsUpdated"));
