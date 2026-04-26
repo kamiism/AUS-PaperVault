@@ -1,0 +1,103 @@
+/* ═══════════════════════════════════════════════════════════
+   VAULT LOADER
+   Cyberpunk multi-ring spinner with glowing core
+   ═══════════════════════════════════════════════════════════ */
+.vault-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 2rem;
+  min-height: 250px;
+}
+
+.vault-loader-container.full-screen {
+  min-height: calc(100vh - 160px);
+}
+
+.vault-loader {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vault-loader-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--color-vault-lavender);
+  border-left-color: rgba(var(--color-vault-lavender-rgb), 0.2);
+  animation: vault-spin linear infinite;
+}
+
+.vault-loader-ring.ring-1 {
+  width: 100%;
+  height: 100%;
+  animation-duration: 1.5s;
+  box-shadow: 0 0 15px rgba(var(--color-vault-lavender-rgb), 0.15);
+}
+
+.vault-loader-ring.ring-2 {
+  width: 75%;
+  height: 75%;
+  border-top-color: var(--color-vault-blue);
+  border-left-color: rgba(var(--color-vault-blue-rgb), 0.15);
+  animation-duration: 2s;
+  animation-direction: reverse;
+}
+
+.vault-loader-ring.ring-3 {
+  width: 50%;
+  height: 50%;
+  border-top-color: var(--color-vault-steel);
+  border-left-color: transparent;
+  animation-duration: 1s;
+}
+
+.vault-loader-core {
+  width: 20%;
+  height: 20%;
+  background-color: var(--color-vault-lavender);
+  border-radius: 50%;
+  box-shadow: 0 0 20px 4px rgba(var(--color-vault-lavender-rgb), 0.6);
+  animation: vault-pulse 1.5s ease-in-out infinite alternate;
+}
+
+.vault-loader-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-vault-lavender);
+  text-transform: uppercase;
+  animation: vault-pulse-text 1.5s ease-in-out infinite alternate;
+  text-shadow: 0 0 8px rgba(var(--color-vault-lavender-rgb), 0.4);
+}
+
+@keyframes vault-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes vault-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+    box-shadow: 0 0 10px 2px rgba(var(--color-vault-lavender-rgb), 0.4);
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+    box-shadow: 0 0 20px 6px rgba(var(--color-vault-lavender-rgb), 0.8);
+  }
+}
+
+@keyframes vault-pulse-text {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; text-shadow: 0 0 12px rgba(var(--color-vault-lavender-rgb), 0.6); }
+}

@@ -15,6 +15,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import FloatingActions from "./components/FloatingActions/FloatingActions";
 import NotificationsPopup from "./components/NotificationsPopup/NotificationsPopup";
+import Loader from "./components/Loader/Loader";
 
 // Eager loaded for instant LCP
 import HomePage from "./pages/HomePage";
@@ -33,20 +34,7 @@ const DonatePage = lazy(() => import("./pages/DonatePage"));
 const DeleteAccountPage = lazy(() => import("./pages/DeleteAccountPage"));
 
 function PageSkeleton() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        padding: "4rem",
-        color: "var(--color-vault-steel)",
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.85rem",
-      }}
-    >
-      Loading module...
-    </div>
-  );
+  return <Loader fullScreen text="Initializing Module..." />;
 }
 
 function ScrollToTop() {

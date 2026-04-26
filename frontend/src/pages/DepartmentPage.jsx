@@ -7,6 +7,7 @@ import SemesterSelector from "../components/SemesterSelector/SemesterSelector";
 import SubjectSelector from "../components/SubjectSelector/SubjectSelector";
 import YearSelector from "../components/YearSelector/YearSelector";
 import PaperList from "../components/PaperList/PaperList";
+import Loader from "../components/Loader/Loader";
 import { motion } from "framer-motion";
 import "./DepartmentPage.css";
 
@@ -39,15 +40,7 @@ export default function DepartmentPage() {
           className="container-vault"
           style={{ padding: "4rem 1rem", textAlign: "center" }}
         >
-          <h1
-            style={{
-              fontFamily: "var(--font-heading)",
-              color: "var(--color-vault-text)",
-              marginBottom: "1rem",
-            }}
-          >
-            Loading Department...
-          </h1>
+          <Loader text="Loading Department..." />
         </div>
       </motion.div>
     );

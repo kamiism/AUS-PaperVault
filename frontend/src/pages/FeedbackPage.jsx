@@ -14,6 +14,7 @@ import { apiFetch } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import { notifyFeedbackSubmitted } from "../data/adminNotifications";
 import { pageVariants, pageTransition } from "../lib/animations";
+import Loader from "../components/Loader/Loader";
 import "./FeedbackPage.css";
 
 export default function FeedbackPage() {
@@ -53,6 +54,21 @@ export default function FeedbackPage() {
     };
     fetchMyFeedback();
   }, [user]);
+
+  if (loadingInitial && user) {
+    return (
+      <motion.div
+        className="page-enter"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageVariants}
+        transition={pageTransition}
+      >
+        <Loader fullScreen text="Loading Feedback Data..." />
+      </motion.div>
+    );
+  }
 
   if (!user) {
     return (

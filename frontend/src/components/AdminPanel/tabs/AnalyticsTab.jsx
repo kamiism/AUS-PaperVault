@@ -12,6 +12,7 @@ import {
   Bar,
 } from "recharts";
 import { apiFetch } from "../../../api/api";
+import Loader from "../../Loader/Loader";
 
 export default function AnalyticsTab({ allDepartments }) {
   const [analytics, setAnalytics] = useState(null);
@@ -47,15 +48,7 @@ export default function AnalyticsTab({ allDepartments }) {
         className="admin-analytics-section animate-slideUp"
         style={{ padding: "2rem", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        <div style={{ textAlign: "center" }}>
-          <Loader2
-            size={32}
-            style={{ color: "var(--color-vault-lavender)", animation: "spin 1s linear infinite" }}
-          />
-          <p style={{ color: "var(--color-vault-steel)", marginTop: "1rem", fontSize: "0.9rem" }}>
-            Loading analytics data...
-          </p>
-        </div>
+        <Loader text="Loading analytics data..." />
       </div>
     );
   }
