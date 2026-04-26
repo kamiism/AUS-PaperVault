@@ -20,7 +20,6 @@ const departmentSchema = new mongoose.Schema({
     iconName: {
         type: String,
         default: "Monitor",
-        enum: ["Monitor", "Cpu", "Zap", "Cog", "Building2", "Atom", "FlaskConical", "Calculator", "BookOpen", "Languages", "Landmark", "TrendingUp", "Briefcase", "Leaf", "Microscope"],
     },
     years: {
         type: [Number],

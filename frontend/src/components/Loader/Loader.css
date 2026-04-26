@@ -2,6 +2,15 @@
    VAULT LOADER
    Cyberpunk multi-ring spinner with glowing core
    ═══════════════════════════════════════════════════════════ */
+:root {
+  --color-vault-lavender: #afb3f7;
+  --color-vault-lavender-rgb: 175, 179, 247;
+  --color-vault-blue: #92bcea;
+  --color-vault-blue-rgb: 146, 188, 234;
+  --color-vault-steel: #7a93ac;
+  --font-mono: 'JetBrains Mono', monospace, sans-serif;
+}
+
 .vault-loader-container {
   display: flex;
   flex-direction: column;

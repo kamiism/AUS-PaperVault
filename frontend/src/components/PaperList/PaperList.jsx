@@ -38,22 +38,53 @@ export default function PaperList({
   // Only show year tabs if selectedYear prop is not provided (for backward compatibility)
   const showYearTabs = propSelectedYear === undefined && !propPapers;
 
-  const handleDownload = (paper) => {
-    incrementDownload(paper.id);
-    // In a real app, this would trigger an actual file download
-  };
-
   const BASE_URL = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
   const getPreviewUrl = (paper) => {
     if (!paper) return fallbackPdf;
     if (paper.path) {
-      return `${BASE_URL}/uploads${paper.path.split("uploads")[1]}`;
+      const normalizedPath = paper.path.replace(/\\/g, "/");
+      const uploadsIndex = normalizedPath.indexOf("uploads");
+      if (uploadsIndex !== -1) {
+        const pathAfterUploads = normalizedPath.substring(uploadsIndex + 7);
+        const formattedPath = pathAfterUploads.startsWith("/") ? pathAfterUploads : `/${pathAfterUploads}`;
+        return `${BASE_URL}/uploads${formattedPath}`;
+      }
+      return `${BASE_URL}/${normalizedPath}`;
     }
     if (paper.link && paper.link !== "#") {
       return paper.link;
     }
     return fallbackPdf;
+  };
+
+  const handleDownload = async (paper) => {
+    incrementDownload(paper.id);
+    
+    const url = getPreviewUrl(paper);
+    if (url === fallbackPdf) {
+      return;
+    }
+
+    try {
+      // Fetch the file as a blob to force download instead of browser opening it
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Network response was not ok");
+      const blob = await response.blob();
+      
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = paper.fileName || `${paper.subject}_Paper.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Error downloading paper:", error);
+      // Fallback: just try to open in a new tab
+      window.open(url, '_blank');
+    }
   };
 
   return (

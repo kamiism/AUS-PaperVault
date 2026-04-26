@@ -42,7 +42,7 @@ departmentRouter.post("/add", authMiddleware, async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        sendError(res, "Error in creating department", err.message);
+        sendError(res, "Error in creating department", STATUS_CODES.SERVER_ERROR, err.message);
     }
 });
 
@@ -72,7 +72,7 @@ departmentRouter.get("/list", async (req, res) => {
         );
     } catch (err) {
         console.log(err);
-        sendError(res, "Error in fetching departments", err.message);
+        sendError(res, "Error in fetching departments", STATUS_CODES.SERVER_ERROR, err.message);
     }
 });
 
@@ -100,7 +100,7 @@ departmentRouter.delete("/delete/:id", authMiddleware, async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        sendError(res, "Error in deleting department", err.message);
+        sendError(res, "Error in deleting department", STATUS_CODES.SERVER_ERROR, err.message);
     }
 });
 
@@ -170,7 +170,7 @@ departmentRouter.put("/update/:id", authMiddleware, async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        sendError(res, "Error in updating department", err.message);
+        sendError(res, "Error in updating department", STATUS_CODES.SERVER_ERROR, err.message);
     }
 });
 
@@ -343,7 +343,7 @@ departmentRouter.post("/semester/:action", authMiddleware, async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        sendError(res, `Error in semester ${action}`);
+        sendError(res, `Error in semester ${action}`, STATUS_CODES.SERVER_ERROR, err.message);
     }
 });
 export default departmentRouter;
