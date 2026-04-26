@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/xenonjs/AUS-PaperVault/
+cd /home/xenondotjs/AUS-PaperVault/
 
 git pull origin main
 
