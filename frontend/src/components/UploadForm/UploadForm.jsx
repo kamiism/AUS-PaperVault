@@ -21,7 +21,7 @@ import "./UploadForm.css";
 
 export default function UploadForm() {
   const { departments, loading: deptLoading } = useDepartments();
-  const semesters = useSemesters();
+  const [semesters , setSemesters] = useState([]);
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [department, setDepartment] = useState("");
@@ -266,8 +266,8 @@ export default function UploadForm() {
           >
             <option value="">Select Department</option>
             {departments.map((dept) => (
-              <option key={dept.fullName} value={dept.shortName}>
-                {dept.name}
+              <option key={dept._id} value={dept._id} onClick={() => {setSemesters(Object.keys(dept.semesters))}}>
+                {dept.fullName}
               </option>
             ))}
           </select>
